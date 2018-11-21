@@ -1,0 +1,29 @@
+rtl_package_name: test2
+register_types: 
+    - name: foo
+      fields:
+        - {name: f1, bit_high: 7, bit_low: 4}
+        - {name: f2, bit_high: 3, bit_low: 1}
+        - {name: f3, bit_high: 0, bit_low: 0}
+
+    - name: bar
+      fields:
+        - {name: f1, bit_high: 7, bit_low: 0, word: 0}
+        - {name: f2, bit_high: 7, bit_low: 4, word: 1}
+        - {name: f3, bit_high: 3, bit_low: 0, word: 1}
+
+register_banks:
+    - name: test_bank
+      base_address: 0x60
+      registers:
+        - { name: foo1, register_type: foo }
+        - { name: foo2, register_type: foo }
+        - { name: foo3, register_type: foo }
+        - { name: bar1, register_type: bar }
+        - { name: bar2, register_type: bar }
+
+      configuration:
+        - { name: gain_values, type: num }
+        - { name: agc_enabled, type: bool}
+
+

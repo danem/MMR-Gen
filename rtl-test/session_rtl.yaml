@@ -1,0 +1,42 @@
+rtl_package_name: session_rtl
+register_types:
+    - name: session
+      fields:
+        - {name: spi_burst_last_session, bit_high: 31, bit_low: 31, word: 0}
+        - {name: spi_burst_lcnt,         bit_high: 30, bit_low: 27, word: 0}
+        - {name: tpc_eos_del,            bit_high: 26, bit_low: 16, word: 0}
+        - {name: flag_agc_en,            bit_high: 15, bit_low: 15, word: 0}
+
+        - {name: phi2_swseq,             bit_high: 27, bit_low: 24, word: 1}
+        - {name: phi1_swseq,             bit_high: 23, bit_low: 20, word: 1}
+        - {name: phi0_swseq,             bit_high: 19, bit_low: 16, word: 1}
+        - {name: phi0_del1,              bit_high: 15, bit_low: 08, word: 1}
+        - {name: phi0_del0,              bit_high: 07, bit_low: 00, word: 1}
+
+        - {name: phi2_del1,              bit_high: 31, bit_low: 24, word: 2}
+        - {name: phi2_del0,              bit_high: 23, bit_low: 16, word: 2}
+        - {name: phi1_del1,              bit_high: 15, bit_low: 08, word: 2}
+        - {name: phi1_del0,              bit_high: 07, bit_low: 00, word: 2}
+
+        - {name: vga_conf,               bit_high: 31, bit_low: 00, word: 3}
+
+        - {name: switch_conf,            bit_high: 31, bit_low: 00, word: 4}
+
+        - {name: foo_conf,               bit_high: 31, bit_low: 00, word: 5}
+
+register_banks:
+    - name: session_config
+      base_address: 0x52000000
+      registers:
+        - {name: session1, register_type: session}
+        - {name: session2, register_type: session}
+        - {name: session3, register_type: session}
+
+      configuration:
+        - { name: gain_values, type: num }
+        - { name: agc_enabled, type: bool}
+
+registers:
+    - {name: session1, register_type: session, address: 0x52000000}
+    - {name: session2, register_type: session}
+    - {name: session3, register_type: session}

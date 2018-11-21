@@ -1,0 +1,162 @@
+{
+    "rtl_version":2,
+    "registers":[
+        { "base_address": 0x52000000,
+          "fields": [
+            { "name": "spi_burst_lastsession",
+              "description": "0 - not a last session 1 - last session",
+              "bit_hi": 31,
+              "bit_lo": 31 },
+
+            { "name": "spi_burst_lcnt",
+              "description": "# of 32b wide words for SPI config - 1",
+              "bit_hi": 30,
+              "bit_lo": 27 },
+
+            { "name": "tpc_eos_del",
+              "description": "End of session delay running @ 32 MHz",
+              "bit_hi": 26,
+              "bit_lo": 16 },
+
+            { "name": "flag_agc_en",
+              "description": "0 - agc disable, 1 - agc enable",
+              "bit_hi": 15,
+              "bit_lo": 15 } 
+           ]
+        },
+        { "base_address": 0x52000004,
+          "fields": [
+            { "name": "phi2_swseq",
+              "description": "switch sequence (TP_PHI2)",
+              "bit_hi": 27,
+              "bit_lo": 24 },
+
+            { "name": "phi1_swseq",
+              "description": "switch sequence (TP_PHI1)",
+              "bit_hi": 23,
+              "bit_lo": 20 },
+            
+            { "name": "phi0_swseq",
+              "description": "switch sequence (TP_PHI0)",
+              "bit_hi": 19,
+              "bit_lo": 16 },
+            
+            { "name": "phi0_del1",
+              "description": "delay 1 (TP_PHI0)",
+              "bit_hi": 15,
+              "bit_lo": 8 },
+            
+            { "name": "phi0_del0",
+              "description": "delay 0 (TP_PHI2)",
+              "bit_hi": 7,
+              "bit_lo": 0 },
+          ]
+        },
+        { "base_address": 0x52000008,
+          "fields": [
+            { "name": "phi2_del1",
+              "description": "delay 1 (TP_PHI2)",
+              "bit_hi": 31,
+              "bit_lo": 24 },
+
+            { "name": "phi2_del0",
+              "description": "delay 0 (TP_PHI2)",
+              "bit_hi": 23,
+              "bit_lo": 16 },
+
+            { "name": "phi1_del1",
+              "description": "delay 1 (TP_PHI1)",
+              "bit_hi": 15,
+              "bit_lo": 8 },
+
+            { "name": "phi1_del0",
+              "description": "delay 0 (TP_PHI1)",
+              "bit_hi": 7,
+              "bit_lo": 0 }
+          ]
+        },
+        { "base_address": 0x5200000c,
+          "fields": [
+            { "name": "spi_data",
+              "description": "SPI Data",
+              "bit_hi": 31,
+              "bit_lo": 0 }
+          ]
+        },
+        { "base_address": 0x52002000,
+          "field_repeat": 32,
+          "name": "vga_thresholds",
+          "fields": [
+            { "name": "vga_threshold",
+              "description": "",
+              "bit_hi": 15,
+              "bit_lo": 0 }
+          ]
+        },
+        { "base_address": 0x52000180,
+          "field_repeat": 32,
+          "name": "agc_data",
+          "fields": [
+            { "name": "agc_spi_data",
+              "bit_hi": 31,
+              "bit_lo": 0
+            }
+          ]
+        },
+        { "base_address": 0x50000000,
+          "fields": [
+            { "name": "tp_scan_period",
+              "description": "Touch+ scan rate using 1MHz clock",
+              "bit_hi": 15,
+              "bit_lo": 0 }
+          ]
+        },
+        { "base_address": 0x51000000,
+          "fields": [
+            { "name": "command",
+              "bit_hi": 3,
+              "bit_lo": 0 },
+          ]
+        },
+        { "base_address": 0x51000004,
+          "fields": [
+            { "name": "dpot_val",
+              "description": "digital potentiometer value. 8bit.",
+              "bit_hi": 23,
+              "bit_lo": 16 },
+
+            { "name": "spi_rs70_data",
+              "description": "16bit rs70 spi data.",
+              "bit_hi": 15,
+              "bit_lo": 0 },
+          ]
+        },
+        { "base_address": 0x51000008,
+          "fields": [
+            { "name": "sw_bacbd2amux1_en",
+              "bit_hi": 17,
+              "bit_lo": 17 },
+
+            { "name": "sw_bacbd2amux0_en",
+              "bit_hi": 16,
+              "bit_lo": 16 },
+
+            { "name": "spi_dacbd_data",
+              "bit_hi": 15,
+              "bit_lo": 0 },
+          ]
+        },
+        { "base_address": 0x5100000c,
+          "fields": [
+            { "name": "rs70_ext_resetn",
+              "description": "External RESETn signal for RS70",
+              "bit_hi": 8,
+              "bit_lo": 8 },
+
+            { "name": "led_ctrl",
+              "bit_hi": 7,
+              "bit_lo": 0 },
+          ]
+        }
+    ]
+}

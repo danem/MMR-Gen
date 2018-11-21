@@ -1,0 +1,254 @@
+rtl_package_name: rs70
+
+constants:
+    - {name: CMD_DPOT_CONF, value: 1}
+    - {name: CMD_CONF_SPI,  value: 3}
+    - {name: CMD_CONF_DAC,  value: 4}
+    - {name: CMD_REG_RESET, value: 7}
+    - {name: VGA_SPI_CONF_ADDR, value: 0x52000180}
+    - {name: ADC_DATA_ADDR, value: 0x52001000}
+    - {name: VGA_THRESHOLD_ADDR, value: 0x52002000}
+
+register_types:
+    - name: dmux
+      fields:
+        - {name: spi_spare_bits_3v, bit_high: 07, bit_low: 04}
+        - {name: mux_sel,           bit_high: 03, bit_low: 00}
+
+    - name: amux
+      fields:
+        - {name: buf_path_en,       bit_high: 07, bit_low: 07}
+        - {name: buf_en,            bit_high: 06, bit_low: 06}
+        - {name: amux_ib_en,        bit_high: 05, bit_low: 05}
+        - {name: buf_bypass_en,     bit_high: 04, bit_low: 04}
+        - {name: mux_sel,           bit_high: 03, bit_low: 00}
+
+    - name: ibias_conf
+      fields: 
+        - {name: rt_con,            bit_high: 02, bit_low: 01}
+        - {name: en_bm,             bit_high: 00, bit_low: 00}
+    
+    - name: relaxation_osc
+      fields: 
+        - {name: _unused,           bit_high: 07, bit_low: 00, description: unused}
+
+    - name: tx_unit
+      fields:
+        - {name: tx_pen,            bit_high: 07, bit_low: 07, byte: 0}
+        - {name: tx_pen_dacen,      bit_high: 06, bit_low: 06, byte: 0}
+        - {name: tx_pen_ibgen,      bit_high: 05, bit_low: 05, byte: 0}
+        - {name: mux_outen4,        bit_high: 04, bit_low: 04, byte: 0}
+        - {name: mux_outen3,        bit_high: 03, bit_low: 03, byte: 0}
+        - {name: mux_outen2,        bit_high: 02, bit_low: 02, byte: 0}
+        - {name: mux_outen1,        bit_high: 01, bit_low: 01, byte: 0}
+        - {name: mux_outen0,        bit_high: 00, bit_low: 00, byte: 0}
+
+        - {name: tx_mix_rcont,      bit_high: 05, bit_low: 03, byte: 1}
+        - {name: tx_drv_rcont,      bit_high: 02, bit_low: 00, byte: 1}
+
+        - {name: lp_drv_rcont,      bit_high: 06, bit_low: 06, byte: 2}
+        - {name: doc_bot_cont,      bit_high: 05, bit_low: 03, byte: 2}
+        - {name: doc_top_cont,      bit_high: 02, bit_low: 00, byte: 2}
+
+    - name: rx_rf_unit
+      fields:
+        - {name: rx_pen,            bit_high: 07, bit_low: 07, byte: 0}
+        - {name: vga_1db_ctrl,      bit_high: 06, bit_low: 03, byte: 0}
+        - {name: vga_2db_ctrl,      bit_high: 02, bit_low: 00, byte: 0}
+
+        - {name: rx_mix_rcont,      bit_high: 07, bit_low: 05, byte: 1}
+        - {name: mux_ch0_en,        bit_high: 04, bit_low: 03, byte: 1}
+        - {name: mux_ch1_en,        bit_high: 02, bit_low: 01, byte: 1}
+        - {name: mux_ch_pen,        bit_high: 00, bit_low: 00, byte: 1}
+
+        - {name: hpf_cap_cont,      bit_high: 07, bit_low: 05, byte: 2}
+        - {name: lpf_cap_cont,      bit_high: 04, bit_low: 00, byte: 2}
+
+        - {name: vga_4db_ctrl,      bit_high: 07, bit_low: 05, byte: 3}
+
+        - {name: ttt_s9,            bit_high: 04, bit_low: 04, byte: 3}
+        - {name: ttt_s10,           bit_high: 03, bit_low: 03, byte: 3}
+        - {name: ttt_s11,           bit_high: 02, bit_low: 02, byte: 3}
+        - {name: ttt_sen_union,     union: [ttt_s9, ttt_s10, ttt_s11] }
+
+        - {name: ttt_en,            bit_high: 01, bit_low: 01, byte: 3}
+        - {name: rx_pen_main,       bit_high: 00, bit_low: 00, byte: 3}
+    
+    - name: rx_tp_sw_ctrl
+      fields:
+        - {name: s1_en_phi3,        bit_high: 07, bit_low: 07, byte: 0}
+        - {name: s1_en_phi2,        bit_high: 06, bit_low: 06, byte: 0}
+        - {name: s1_en_phi1,        bit_high: 05, bit_low: 05, byte: 0}
+        - {name: s1_en,             bit_high: 04, bit_low: 04, byte: 0}
+        - {name: s2_en_phi3,        bit_high: 03, bit_low: 03, byte: 0}
+        - {name: s2_en_phi2,        bit_high: 02, bit_low: 02, byte: 0}
+        - {name: s2_en_phi1,        bit_high: 01, bit_low: 01, byte: 0}
+        - {name: s2_en,             bit_high: 00, bit_low: 00, byte: 0}
+
+        - {name: s3_en_phi3,        bit_high: 07, bit_low: 07, byte: 1}
+        - {name: s3_en_phi2,        bit_high: 06, bit_low: 06, byte: 1}
+        - {name: s3_en_phi1,        bit_high: 05, bit_low: 05, byte: 1}
+        - {name: s3_en,             bit_high: 04, bit_low: 04, byte: 1}
+        - {name: s4_en_phi3,        bit_high: 03, bit_low: 03, byte: 1}
+        - {name: s4_en_phi2,        bit_high: 02, bit_low: 02, byte: 1}
+        - {name: s4_en_phi1,        bit_high: 01, bit_low: 01, byte: 1}
+        - {name: s4_en,             bit_high: 00, bit_low: 00, byte: 1}
+
+    - name: adc_control
+      fields:
+        - {name: ibias_ctrl_adc,    bit_high: 07, bit_low: 04, byte: 0}
+        - {name: i_reft_ctrl,       bit_high: 03, bit_low: 00, byte: 0}
+
+        - {name: i_refb_ctrl,       bit_high: 07, bit_low: 04, byte: 1}
+        - {name: i_trim,            bit_high: 03, bit_low: 00, byte: 1}
+
+        - {name: adc_allch_en,      bit_high: 07, bit_low: 07, byte: 2}
+        - {name: i_stby,            bit_high: 06, bit_low: 06, byte: 2}
+        - {name: i_adc_chop_on,     bit_high: 05, bit_low: 05, byte: 2}
+        - {name: i_adct_onb,        bit_high: 04, bit_low: 04, byte: 2}
+        - {name: i_ref_onb,         bit_high: 03, bit_low: 03, byte: 2}
+        - {name: i_ref_mon,         bit_high: 02, bit_low: 02, byte: 2}
+        - {name: i_trim_on,         bit_high: 01, bit_low: 01, byte: 2}
+        - {name: i_ext_ref_on,      bit_high: 00, bit_low: 00, byte: 2}
+        
+        - {name: poc,               bit_high: 00, bit_low: 00, byte: 3}
+
+    - name: rx_sw
+      fields:
+        - {name: pi3_3v,            bit_high: 03, bit_low: 03}
+        - {name: pi2_3v,            bit_high: 02, bit_low: 02}
+        - {name: pi1,               bit_high: 01, bit_low: 01}
+        - {name: enm,               bit_high: 00, bit_low: 00}
+
+    - name: tx_sw 
+      fields:
+        - {name: sw_en_lp_5v,       bit_high: 07, bit_low: 07, byte: 0}
+        - {name: sw_sht_en_5v,      bit_high: 06, bit_low: 06, byte: 0}
+        - {name: gsw_addr,          bit_high: 05, bit_low: 03, byte: 0}
+        - {name: gsw_sel,           bit_high: 02, bit_low: 00, byte: 0}
+
+        - {name: txp_sw1_cont,      bit_high: 07, bit_low: 07, byte: 1}
+        - {name: txp_sw2_cont,      bit_high: 06, bit_low: 06, byte: 1}
+    
+    - name: stat_reg
+      fields:
+        - {name: bgr_chop_clk_en,   bit_high: 01, bit_low: 01}
+        - {name: bgr_enh,           bit_high: 00, bit_low: 00}
+
+    - name: rx_mix_lo_del 
+      fields:
+        - {name: cctrl_coarse,      bit_high: 07, bit_low: 04, byte: 0}
+        - {name: cctrln,            bit_high: 03, bit_low: 00, byte: 0}
+
+        - {name: cctrln2,           bit_high: 07, bit_low: 04, byte: 1}
+        - {name: cctrln3,           bit_high: 03, bit_low: 00, byte: 1}
+
+        - {name: cctrln4,           bit_high: 07, bit_low: 04, byte: 2}
+        - {name: cur_sw_n4,         bit_high: 03, bit_low: 03, byte: 2}
+        - {name: cur_sw_n3,         bit_high: 02, bit_low: 02, byte: 2}
+        - {name: cur_sw_n2,         bit_high: 01, bit_low: 01, byte: 2}
+        - {name: cur_sw_n,          bit_high: 00, bit_low: 00, byte: 2}
+
+        - {name: df_sel,            bit_high: 06, bit_low: 06, byte: 3}
+        - {name: dc_sel,            bit_high: 05, bit_low: 05, byte: 3}
+        - {name: lop_inv_sel,       bit_high: 04, bit_low: 04, byte: 3}
+        - {name: clk_sel_stage1,    bit_high: 03, bit_low: 03, byte: 3}
+        - {name: clk_sel_stage2,    bit_high: 02, bit_low: 02, byte: 3}
+        - {name: cur_sw_coarse,     bit_high: 01, bit_low: 01, byte: 3}
+        - {name: pen,               bit_high: 00, bit_low: 00, byte: 3}
+
+    - name: spi_command
+      fields:
+        - {name: cmd,               bit_high: 03, bit_low: 00}
+
+    - name: spi_ctrl
+      fields:
+        - {name: data,              bit_high: 31, bit_low: 00}
+
+    - name: generic32
+      fields: 
+        - {name: data,              bit_high: 31, bit_low: 00}
+    
+    - name: peri_led
+      fields:
+        - {name: data,              bit_high: 07, bit_low: 00}
+
+    - name: peri_reset
+      fields:
+        - {name: data,              bit_high: 08, bit_low: 08}
+    
+
+    - name: session
+      fields:
+        - {name: spi_burst_last_session, bit_high: 31, bit_low: 31, word: 0}
+        - {name: spi_burst_lcnt,         bit_high: 30, bit_low: 27, word: 0}
+        - {name: tpc_eos_del,            bit_high: 26, bit_low: 16, word: 0}
+        - {name: flag_agc_en,            bit_high: 15, bit_low: 15, word: 0}
+
+        - {name: phi2_swseq,             bit_high: 27, bit_low: 24, word: 1}
+        - {name: phi1_swseq,             bit_high: 23, bit_low: 20, word: 1}
+        - {name: phi0_swseq,             bit_high: 19, bit_low: 16, word: 1}
+        - {name: phi0_del1,              bit_high: 15, bit_low: 08, word: 1}
+        - {name: phi0_del0,              bit_high: 07, bit_low: 00, word: 1}
+
+        - {name: phi2_del1,              bit_high: 31, bit_low: 24, word: 2}
+        - {name: phi2_del0,              bit_high: 23, bit_low: 16, word: 2}
+        - {name: phi1_del1,              bit_high: 15, bit_low: 08, word: 2}
+        - {name: phi1_del0,              bit_high: 07, bit_low: 00, word: 2}
+
+        - {name: foo_conf,               bit_high: 31, bit_low: 00, word: 3}
+        - {name: switch_conf,            bit_high: 31, bit_low: 00, word: 4}
+        - {name: vga_conf,               bit_high: 31, bit_low: 00, word: 5}
+
+
+    - name: rs70_address
+      fields:
+        - {name: byte_select,            bit_high: 07, bit_low: 06, byte: 0}
+        - {name: address,                bit_high: 05, bit_low: 00, byte: 0}
+        - {name: data,                   bit_high: 07, bit_low: 00, byte: 1}
+        
+registers:
+    - {name: dmux0,                address: 00, register_type: dmux}
+    - {name: dmux1,                address: 01, register_type: dmux}
+    - {name: amux0,                address: 02, register_type: amux}
+    - {name: amux1,                address: 03, register_type: amux}
+    - {name: ibias_conf,           address: 04, register_type: ibias_conf}
+    - {name: relaxation_osc,       address: 05, register_type: relaxation_osc}
+    - {name: tx_unit0,             address: 06, register_type: tx_unit}
+    - {name: tx_unit1,             address: 07, register_type: tx_unit}
+    - {name: tx_unit2,             address: 08, register_type: tx_unit}
+    - {name: tx_unit3,             address: 09, register_type: tx_unit}
+    - {name: tx_unit4,             address: 10, register_type: tx_unit}
+    - {name: tx_unit5,             address: 11, register_type: tx_unit}
+    - {name: rx_unit0,             address: 12, register_type: rx_rf_unit}
+    - {name: rx_unit1,             address: 13, register_type: rx_rf_unit}
+    - {name: rx_unit2,             address: 14, register_type: rx_rf_unit}
+    - {name: rx_unit3,             address: 15, register_type: rx_rf_unit}
+    - {name: rx_unit4,             address: 16, register_type: rx_rf_unit}
+    - {name: rx_unit5,             address: 17, register_type: rx_rf_unit}
+    - {name: rx_unit6,             address: 18, register_type: rx_rf_unit}
+    - {name: rx_unit7,             address: 19, register_type: rx_rf_unit}
+    - {name: rx_unit8,             address: 20, register_type: rx_rf_unit}
+    - {name: rx_unit9,             address: 21, register_type: rx_rf_unit}
+    - {name: rx_unit10,            address: 22, register_type: rx_rf_unit}
+    - {name: rx_unit11,            address: 23, register_type: rx_rf_unit}
+    - {name: rx_unit12,            address: 24, register_type: rx_rf_unit}
+    - {name: rx_unit13,            address: 25, register_type: rx_rf_unit}
+    - {name: rx_unit14,            address: 26, register_type: rx_rf_unit}
+    - {name: rx_unit15,            address: 27, register_type: rx_rf_unit}
+    - {name: rx_tp_sw_ctrl,        address: 28, register_type: rx_tp_sw_ctrl}
+    - {name: adc_control,          address: 29, register_type: adc_control}
+    - {name: rx_sw,                address: 30, register_type: rx_sw}
+    - {name: tx_sw,                address: 31, register_type: tx_sw}
+    - {name: stat_reg,             address: 32, register_type: stat_reg}
+    - {name: rx_mix_lo_del,        address: 33, register_type: rx_mix_lo_del}
+    - {name: rx_rf_unit_broadcast, address: 47, register_type: rx_rf_unit}
+
+    - {name: spi_command,          address: 0x51000000, register_type: spi_command}
+    - {name: spi_ctrl,             address: 0x51000004, register_type: spi_ctrl}
+    - {name: peri_led,             address: 0x5100000C, register_type: peri_led}
+    - {name: peri_reset,           address: 0x5100000C, register_type: peri_reset}
+
+    - {name: session1,             register_type: session, address: 0x52000000 }
+    - {name: session2,             register_type: session}
+    - {name: session3,             register_type: session}
